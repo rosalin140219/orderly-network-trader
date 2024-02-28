@@ -81,7 +81,9 @@ class OrderlyNetworkClient:
                 if quantity == 0:
                     continue
                 else:
-                    close_info = self.create_market_order(symbol, quantity, 'SELL')
+                    side = 'SELL' if quantity > 0 else 'BUY'
+                    quantity = -quantity if quantity < 0 else quantity
+                    close_info = self.create_market_order(symbol, quantity, side)
                     logger.info(f"关闭仓位，响应结果{close_info}")
         else:
             logger.info(f"当前账户的仓位为空，跳过，不处理")

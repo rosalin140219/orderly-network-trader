@@ -1,6 +1,6 @@
 import time
 
-from orderly import OrderlyNetworkClient
+from evm import OrderlyNetworkClient
 
 
 if __name__ == '__main__':
@@ -13,10 +13,11 @@ if __name__ == '__main__':
     # order api secret
     client = OrderlyNetworkClient(orderly_account_id, orderly_api_secret)
 
-    # eth合约，目前仅支持开多，然后平仓
+    # eth合约，做多时，side=BUY，做空时，side=SELL
+    # btc合约，symbol=PERP_BTC_USDC
     symbol = 'PERP_ETH_USDC'
     while True:
-        client.create_market_order(symbol, quantity=0.01, side='BUY')
+        client.create_market_order(symbol, quantity=0.05, side='SELL')
         client.close_positions()
         # 休眠3秒
         time.sleep(3)
